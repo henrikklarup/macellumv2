@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBConnection.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DBConnectionStoreContainer">
+    <EntitySet Name="Trips" EntityType="DBConnection.Store.Trips" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DBConnection.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Passwords" EntityType="DBConnection.Store.Passwords" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="DBConnection.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fisks" EntityType="DBConnection.Store.Fisks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Arters" EntityType="DBConnection.Store.Arters" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Havns" EntityType="DBConnection.Store.Havns" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FuleCosts" EntityType="DBConnection.Store.FuleCosts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActiveSessionIds" EntityType="DBConnection.Store.ActiveSessionIds" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TripUser" Association="DBConnection.Store.TripUser">
+      <End Role="Trip" EntitySet="Trips" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="RoleUser" Association="DBConnection.Store.RoleUser">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FiskArter" Association="DBConnection.Store.FiskArter">
+      <End Role="Fisk" EntitySet="Fisks" />
+      <End Role="Arter" EntitySet="Arters" />
+    </AssociationSet>
+    <AssociationSet Name="FiskHavn" Association="DBConnection.Store.FiskHavn">
+      <End Role="Fisk" EntitySet="Fisks" />
+      <End Role="Havn" EntitySet="Havns" />
+    </AssociationSet>
+    <AssociationSet Name="HavnFuleCost" Association="DBConnection.Store.HavnFuleCost">
+      <End Role="Havn" EntitySet="Havns" />
+      <End Role="FuleCost" EntitySet="FuleCosts" />
+    </AssociationSet>
+    <AssociationSet Name="UserPassword" Association="DBConnection.Store.UserPassword">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Password" EntitySet="Passwords" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Trips">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Open" Type="bit" Nullable="false" />
+    <Property Name="FishList" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role_Id" Type="int" Nullable="false" />
+    <Property Name="Password_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Passwords">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pass" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fisks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AvgPrice" Type="decimal" Nullable="false" Precision="18" Scale="5" />
+    <Property Name="MaxPrice" Type="decimal" Nullable="false" Precision="18" Scale="5" />
+    <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" Precision="18" Scale="5" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Arter_Id" Type="int" Nullable="false" />
+    <Property Name="Havn_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Arters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Havns">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FuleCosts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="5" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Havn_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActiveSessionIds">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="TripUser">
+    <End Role="Trip" Type="DBConnection.Store.Trips" Multiplicity="*" />
+    <End Role="User" Type="DBConnection.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trip">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleUser">
+    <End Role="Role" Type="DBConnection.Store.Roles" Multiplicity="1" />
+    <End Role="User" Type="DBConnection.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FiskArter">
+    <End Role="Fisk" Type="DBConnection.Store.Fisks" Multiplicity="*" />
+    <End Role="Arter" Type="DBConnection.Store.Arters" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Arter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fisk">
+        <PropertyRef Name="Arter_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FiskHavn">
+    <End Role="Fisk" Type="DBConnection.Store.Fisks" Multiplicity="*" />
+    <End Role="Havn" Type="DBConnection.Store.Havns" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Havn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fisk">
+        <PropertyRef Name="Havn_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HavnFuleCost">
+    <End Role="Havn" Type="DBConnection.Store.Havns" Multiplicity="1" />
+    <End Role="FuleCost" Type="DBConnection.Store.FuleCosts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Havn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FuleCost">
+        <PropertyRef Name="Havn_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserPassword">
+    <End Role="User" Type="DBConnection.Store.Users" Multiplicity="*" />
+    <End Role="Password" Type="DBConnection.Store.Passwords" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Password">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Password_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBConnection" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBConnectionContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Trips" EntityType="DBConnection.Trip" />
+          <EntitySet Name="Users" EntityType="DBConnection.User" />
+          <EntitySet Name="Passwords" EntityType="DBConnection.Password" />
+          <AssociationSet Name="TripUser" Association="DBConnection.TripUser">
+            <End Role="Trip" EntitySet="Trips" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="DBConnection.Role" />
+          <AssociationSet Name="RoleUser" Association="DBConnection.RoleUser">
+            <End EntitySet="Roles" Role="Role" />
+            <End EntitySet="Users" Role="User" />
+          </AssociationSet>
+          <EntitySet Name="Fisks" EntityType="DBConnection.Fisk" />
+          <EntitySet Name="Arters" EntityType="DBConnection.Arter" />
+          <EntitySet Name="Havns" EntityType="DBConnection.Havn" />
+          <EntitySet Name="FuleCosts" EntityType="DBConnection.FuleCost" />
+          <AssociationSet Name="FiskArter" Association="DBConnection.FiskArter">
+            <End Role="Fisk" EntitySet="Fisks" />
+            <End Role="Arter" EntitySet="Arters" />
+          </AssociationSet>
+          <AssociationSet Name="FiskHavn" Association="DBConnection.FiskHavn">
+            <End Role="Fisk" EntitySet="Fisks" />
+            <End Role="Havn" EntitySet="Havns" />
+          </AssociationSet>
+          <AssociationSet Name="HavnFuleCost" Association="DBConnection.HavnFuleCost">
+            <End Role="Havn" EntitySet="Havns" />
+            <End Role="FuleCost" EntitySet="FuleCosts" />
+          </AssociationSet>
+          <EntitySet Name="ActiveSessionIds" EntityType="DBConnection.ActiveSessionId" />
+          <AssociationSet Name="UserPassword" Association="DBConnection.UserPassword">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Password" EntitySet="Passwords" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Open" Type="Boolean" Nullable="false" />
+          <Property Name="FishList" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DBConnection.TripUser" FromRole="Trip" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <NavigationProperty Name="Trips" Relationship="DBConnection.TripUser" FromRole="User" ToRole="Trip" />
+          <NavigationProperty Name="Role" Relationship="DBConnection.RoleUser" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Password" Relationship="DBConnection.UserPassword" FromRole="User" ToRole="Password" />
+        </EntityType>
+        <EntityType Name="Password">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pass" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="TripUser">
+          <End Type="DBConnection.Trip" Role="Trip" Multiplicity="*" />
+          <End Type="DBConnection.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="DBConnection.RoleUser" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="RoleUser">
+          <End Type="DBConnection.Role" Multiplicity="1" Role="Role" />
+          <End Type="DBConnection.User" Multiplicity="*" Role="User" />
+        </Association>
+        <EntityType Name="Fisk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvgPrice" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="MaxPrice" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Arter" Relationship="DBConnection.FiskArter" FromRole="Fisk" ToRole="Arter" />
+          <NavigationProperty Name="Havn" Relationship="DBConnection.FiskHavn" FromRole="Fisk" ToRole="Havn" />
+        </EntityType>
+        <EntityType Name="Arter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Fisks" Relationship="DBConnection.FiskArter" FromRole="Arter" ToRole="Fisk" />
+        </EntityType>
+        <EntityType Name="Havn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Fisks" Relationship="DBConnection.FiskHavn" FromRole="Havn" ToRole="Fisk" />
+          <NavigationProperty Name="FuleCosts" Relationship="DBConnection.HavnFuleCost" FromRole="Havn" ToRole="FuleCost" />
+        </EntityType>
+        <EntityType Name="FuleCost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Havn" Relationship="DBConnection.HavnFuleCost" FromRole="FuleCost" ToRole="Havn" />
+        </EntityType>
+        <Association Name="FiskArter">
+          <End Type="DBConnection.Fisk" Role="Fisk" Multiplicity="*" />
+          <End Type="DBConnection.Arter" Role="Arter" Multiplicity="1" />
+        </Association>
+        <Association Name="FiskHavn">
+          <End Type="DBConnection.Fisk" Role="Fisk" Multiplicity="*" />
+          <End Type="DBConnection.Havn" Role="Havn" Multiplicity="1" />
+        </Association>
+        <Association Name="HavnFuleCost">
+          <End Type="DBConnection.Havn" Role="Havn" Multiplicity="1" />
+          <End Type="DBConnection.FuleCost" Role="FuleCost" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ActiveSessionId">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="String" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="UserPassword">
+          <End Type="DBConnection.User" Role="User" Multiplicity="1" />
+          <End Type="DBConnection.Password" Role="Password" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBConnectionStoreContainer" CdmEntityContainer="DBConnectionContainer">
+    <EntitySetMapping Name="Trips">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Trip)">
+        <MappingFragment StoreEntitySet="Trips">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Open" ColumnName="Open" />
+          <ScalarProperty Name="FishList" ColumnName="FishList" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Passwords">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Password)">
+        <MappingFragment StoreEntitySet="Passwords">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fisks">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Fisk)">
+        <MappingFragment StoreEntitySet="Fisks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AvgPrice" ColumnName="AvgPrice" />
+          <ScalarProperty Name="MaxPrice" ColumnName="MaxPrice" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Arters">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Arter)">
+        <MappingFragment StoreEntitySet="Arters">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Havns">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.Havn)">
+        <MappingFragment StoreEntitySet="Havns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FuleCosts">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.FuleCost)">
+        <MappingFragment StoreEntitySet="FuleCosts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActiveSessionIds">
+      <EntityTypeMapping TypeName="IsTypeOf(DBConnection.ActiveSessionId)">
+        <MappingFragment StoreEntitySet="ActiveSessionIds">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="TripUser" TypeName="DBConnection.TripUser" StoreEntitySet="Trips">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Trip">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoleUser" TypeName="DBConnection.RoleUser" StoreEntitySet="Users">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="Id" ColumnName="Role_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FiskArter" TypeName="DBConnection.FiskArter" StoreEntitySet="Fisks">
+      <EndProperty Name="Arter">
+        <ScalarProperty Name="Id" ColumnName="Arter_Id" />
+      </EndProperty>
+      <EndProperty Name="Fisk">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FiskHavn" TypeName="DBConnection.FiskHavn" StoreEntitySet="Fisks">
+      <EndProperty Name="Havn">
+        <ScalarProperty Name="Id" ColumnName="Havn_Id" />
+      </EndProperty>
+      <EndProperty Name="Fisk">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HavnFuleCost" TypeName="DBConnection.HavnFuleCost" StoreEntitySet="FuleCosts">
+      <EndProperty Name="Havn">
+        <ScalarProperty Name="Id" ColumnName="Havn_Id" />
+      </EndProperty>
+      <EndProperty Name="FuleCost">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserPassword" TypeName="DBConnection.UserPassword" StoreEntitySet="Users">
+      <EndProperty Name="Password">
+        <ScalarProperty Name="Id" ColumnName="Password_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,29 @@
+﻿@using System.Globalization
+@model List<int>
+    
+
+<table id="FishSortTable">
+    <tr>
+        @foreach (var x in Model)
+        {
+            <td style="text-align: center; padding: 50px;">
+                @Html.HiddenFor(m=>x, new{@Id="x_Id"})
+                @Html.LabelFor(m=>x,x.ToString(CultureInfo.InvariantCulture), new {@Id="x_Navn"})
+            </td>
+        }
+    </tr>
+</table>
+
+
+<script>
+    $(function () {
+        $('#FishSortTable td').click(function () {
+            var xId = $(this).find('#x_Id').get(0).value;
+            var xName = $(this).find('#x_Navn').text();
+            console.log(xId);
+            $("#curFishSort").val(xId);
+            $("#FishSortLabel").text(xName);
+            $("#FishSortDialog").dialog("close");
+        });
+    });
+</script>

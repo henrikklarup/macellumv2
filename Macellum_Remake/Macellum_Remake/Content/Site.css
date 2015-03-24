@@ -1,0 +1,145 @@
+﻿body {
+    padding-top: 100px;
+    padding-bottom: 20px;
+    background: url(images/bcg.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fffaf7;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.custom-nav {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fffaf7;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-justified>li>a {
+    color: #141414;
+    font-size: x-large;
+    
+}
+.nav-justified>li>a:hover{
+    color: #08071b;
+    
+}
+
+.navbar.navbar-inverse.navbar-fixed-top.custom-nav {
+    background-color: #fffaf7;
+    border-color: #fffaf7;
+}
+/*
+.button {
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}*/
+
+.button
+{
+    width   : 80px;
+    background  : none;
+    cursor  : pointer;
+    font-family : 'voltaeftu-regular', Times New Roman;
+    font-size   : 16px;
+    border  : none;
+    margin      : 0px;
+    padding     : 0px;
+}
+
+#controls {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#histTable{
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid black;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+tr.break td {
+    height: 20px;
+    border-left: hidden;
+    border-right: hidden;
+}
+
+.niceBtn {
+    border: 2px solid black;
+    padding: 10px;
+    display: inline-block;
+}
+
+#firstDiv {
+    display: inline-block;
+    width: 24%;
+}
+#secondDiv{
+    display: inline-block;
+    width: 24%;
+}
+#thirdDiv{
+    display: inline-block;
+    width: 24%;
+}
+#fourthDiv{
+    display: inline-block;
+    width: 24%;
+}
+.noPadding {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.ui-widget {
+}
+
+.ui-widget-content {
+}
+
+.ui-dialog {
+}
+
+.ui-dialog .ui-dialog-content {
+}
+
+.ui-widget-header {
+    background: #08071b;
+    border: none;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+}

@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>DataLoad</h2>
+
+<p>Last updated: @ViewBag.LastUpdate</p>
+
+<div style="display: none;">
+    @Html.ActionLink("Data Load", "LoadData", "Admin", new { @class = "button" })
+</div>

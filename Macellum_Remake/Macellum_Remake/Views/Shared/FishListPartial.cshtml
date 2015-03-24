@@ -1,0 +1,25 @@
+﻿@using Macellum_Remake.Models
+@using Newtonsoft.Json
+@model TripClass
+
+<table id="controls">
+    <tr>
+        <th>Navn</th>
+        <th>Sort</th>
+        <th>Mængde (kg)</th>
+        <th></th>
+    </tr>
+    @Html.HiddenFor(model => model.TurTime)
+    @Html.HiddenFor(model => model.CurFangst)
+    @Html.HiddenFor(model => model.Fangst)
+    @{ var val = JsonConvert.DeserializeObject<List<Fisk>>(Model.CurrentTrip.FishList);}
+    @foreach (var item in val)
+    {
+        <tr>
+            <td>@item.Arter.Name</td>
+            <td>@item.Sort</td>
+            <td>@item.Amount</td>
+            <td>@Html.ActionLink("Slet", "SletFish", "Trip", new { @fishId = item.Arter.Id, @fishSort = item.Sort }, null)</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,140 @@
+﻿@{
+    Layout = null;
+}
+@using Newtonsoft.Json
+@model Macellum_Remake.Models.TripClass
+
+@using (Ajax.BeginForm("AddFish", "Trip", new AjaxOptions { UpdateTargetId = "AllPage", InsertionMode = InsertionMode.Replace }))
+{
+    <div style="visibility: hidden">
+        @{
+            var mmm = JsonConvert.SerializeObject(Model.Fangst);
+        }
+        @Html.TextBoxFor(model => model.CurFangst, new { @Value = mmm })
+    </div>
+    <div id="OpenTripBtn" style="margin-left: auto; margin-right:auto; float: none; text-align: center;">
+        <button class="button">
+            @Html.HiddenFor(s => s.TripOpen, new { @Id = "tripOpen" })
+            @(!Model.TripOpen ? Html.Label("Start tur", new { @Id = "tripOpenText" }) : Html.Label("Luk tur", new { @Id = "tripOpenText" }))
+            <span class="gi gi-boat" style="font-size: 3.2em;"></span>
+        </button>
+    </div>
+    <div id="FishSelectContainer">
+        <div id="firstDiv" class="noPadding">
+            <div >
+                <button class="button" type="button" id="FishBtn">
+                    @Html.HiddenFor(s => s.CurFishId, new { @Id = "curId" })
+                    <span class="gi gi-fishes" style="font-size: 3.2em;"></span>
+                    <br />
+                    @Html.Label("Vælg Fisk", new { @Id = "FishTxt" })
+                </button>
+            </div>
+        </div>
+        <div id="secondDiv" class="noPadding">
+            <div >
+                @Html.HiddenFor(s => s.CurFishSort, new { @Id = "curFishSort" })
+                <button class="button" type="button" id="FishSort">
+                    <span class="gi gi-ruller" style="font-size: 3.2em;"></span>
+                    <br />
+                    @Html.Label("Vælg Sort", new { @Id = "FishSortLabel" })
+                </button>
+            </div>
+        </div>
+        <div id="thirdDiv" class="noPadding">
+            <div >
+                @Html.HiddenFor(s => s.CurFishAmount, new { @Id = "curFishAmount" })
+                <button class="button" type="button" id="FishAmountBtn">
+                    <span class="gi gi-calculator" style="font-size: 3.2em;"></span>
+                    <br />
+                    @Html.Label("Vælg Kg", new { @Id = "FishAmountLabel" })
+                </button>
+            </div>
+        </div>
+        <div id="fourthDiv" class="noPadding">
+            <button class="button" id="Add" name="SubmitVal" type="submit">
+                <span class="gi gi-check" style="font-size: 3.2em;"></span>
+                <br/>
+                @Html.Label("Tilføj Fisk")
+            </button>
+        </div>
+    </div>
+
+    <div id="FishList">
+        @Html.Partial("FishListPartial", Model)
+    </div>
+    <br/>
+    <br/>
+    <div id="CloseTripBtn" class="noPadding" style="margin-left: auto; margin-right:auto; float: right; text-align: center;">
+        <button class="button" id="Close" type="submit"><span class="gi gi-anchor" style="font-size: 3.2em;"></span>
+            <br/>
+            @(Html.Label("Luk tur", new { @Id = "tripCloseText"}))
+        </button>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            if ($("#tripOpen").val() == "false" || $("#tripOpen").val() == "False") {
+                $("#FishSelectContainer").hide();
+                $("#FishList").hide();
+                $("#OpenTripBtn").show();
+                $("#CloseTripBtn").hide();
+            }
+            if ($("#tripOpen").val() == "true" || $("#tripOpen").val() == "True") {
+                $("#FishSelectContainer").show();
+                $("#FishList").show();
+                $("#CloseTripBtn").show();
+                $("#OpenTripBtn").hide();
+            }
+
+            $("#FishBtn").click(function () {
+                $("#FishDialog").dialog("open");
+            });
+
+            $("#FishSort").click(function () {
+                $("#FishSortDialog").dialog("open");
+            });
+
+            $("#FishAmountBtn").click(function () {
+                $("#FishAmountDialog").dialog("open");
+            });
+
+            $("#OpenTripBtn").click(startCloseTrip);
+            $("#CloseTripBtn").click(startCloseTrip);
+
+            function startCloseTrip() {
+                if ($("#tripOpen").val() == "true" || $("#tripOpen").val() == "True") {
+                    $("#tripOpen").val(false);
+                    $("#tripOpenText").text("Start tur");
+                    $("#FishSelectContainer").hide();
+                    $("#FishList").hide();
+                    $("#OpenTripBtn").show();
+                    $("#CloseTripBtn").hide();
+                } else {
+                    $("#tripOpen").val(true);
+                    $("#tripOpenText").text("Luk tur");
+                    $("#FishSelectContainer").show();
+                    $("#FishList").show();
+                    $("#CloseTripBtn").show();
+                    $("#OpenTripBtn").hide();
+                }
+            }
+        });
+    </script>
+}
+
+@using (Html.BeginForm("SaveFishes", "Trip"))
+{
+
+    <div style="visibility: hidden">
+        @{
+            var mmm = JsonConvert.SerializeObject(Model.Fangst);
+        }
+        @Html.TextBoxFor(model => model.CurFangst, new { @Value = mmm })
+    </div>
+    
+    //<input class="button" id="Gem" type="submit" value="Gem" />
+    //<input class="button" id="Slet" type="submit" value="Slet" />
+}

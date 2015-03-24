@@ -1,0 +1,88 @@
+﻿@using Macellum_Remake.Models
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - Macellum</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/glyphicons.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/gl.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery-ui.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/Chart.min.js"></script>
+        <script src="https://www.google.com/jsapi"></script>
+    
+        @RenderSection("Styles", false)
+
+    </head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top custom-nav">
+        @{
+            var _repo = new DatabaseRepo();
+            if (HttpContext.Current.User.Identity.IsAuthenticated && _repo.GetRoleByUsername(HttpContext.Current.User.Identity.Name).ToLower() == "admin")
+            {
+                <div class="navbar-default" style="background-color: orange;">
+                    <ul class="nav nav-justified">
+                        <li>
+                            @Html.ActionLink("IpLogs", "IpLogs", "Admin") <!--// , new { area = "" }, new { class = "navbar-brand" })-->
+                        </li>
+                        <li>
+                            @Html.ActionLink("LastUpdated/Update", "Index", "Admin")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Create User", "Create", "User")
+                        </li>
+                        <li>
+                            @Html.ActionLink("BlogList", "List", "Blog")
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav nav-justified">
+                    <li>
+                        @Html.ActionLink("Forside", "Index", "Home") <!--// , new { area = "" }, new { class = "navbar-brand" })-->
+                    </li>
+                    <li>
+                        @Html.ActionLink("Rejse", "Index", "Trip")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Historik", "Historik", "Trip")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Hjælp", "Help", "Home")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <img src="~/Content/images/macellumShaded.png" style="width: 100%"/>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer style="text-align: center; color:white;">
+        <p>&copy; @DateTime.Now.Year - Macellum</p>
+    </footer>
+</body>
+</html>

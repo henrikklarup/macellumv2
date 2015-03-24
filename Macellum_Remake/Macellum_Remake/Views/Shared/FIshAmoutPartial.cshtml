@@ -1,0 +1,42 @@
+﻿@using System.Globalization
+@model List<int>
+
+<div style="width: 100%;">
+    <input type="number" name="quantity" min="1" id="FishQuantity" value="200" style="width: 100%; max-width: 80%; line-height: 50px; font-size:3.2em" />
+    <button class="button" type="button" id="quantityCheck" style="float:right; width: 20%;"><span class="gi gi-check" style="font-size: 3.2em;"></span></button>
+</div>
+<table id="FishAmountTable">
+    <tr>
+    @foreach (var x in Model)
+        {
+        <td style="text-align: center; padding: 50px;">
+            @Html.LabelFor(m => x, x.ToString(CultureInfo.InvariantCulture), new { @Id = "x_Navn" })
+        </td>
+            if (x == 4)
+            {
+                @:</tr>
+                @:<tr>
+            }
+                
+        }
+    </tr>
+</table>
+
+
+<script>
+    $(function () {
+        $(document).ready(function() {
+            $('#FishQuantity').focus().val($('#FishQuantity').val());
+        });
+        $('#quantityCheck').click(function () {
+            var xId = $('#FishQuantity').get(0).value;
+            $("#curFishAmount").val(xId);
+            $("#FishAmountLabel").text(xId);
+            $("#FishAmountDialog").dialog("close");
+        });
+        $('#FishAmountTable td').click(function () {
+            var xName = $(this).find('#x_Navn').text();
+            $('#FishQuantity').val($('#FishQuantity').val() + xName);
+        });
+    });
+</script>

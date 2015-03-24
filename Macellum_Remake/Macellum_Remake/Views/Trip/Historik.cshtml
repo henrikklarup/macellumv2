@@ -1,0 +1,48 @@
+﻿@using Macellum_Remake.Models
+@using Newtonsoft.Json
+@model IEnumerable<Trip>
+
+@{
+    ViewBag.Title = "Historik";
+}
+
+<table class="table" id="histTable">
+    <tr>
+        <th>
+            @Html.DisplayName("Status")
+        </th>
+        <th>
+            @Html.DisplayName("Total fangst (kg)")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{ var open = item.Open ? "Åben" : "Lukket"; }
+            @Html.DisplayFor(modelItem => open)
+        </td>
+        <td>
+            @{
+                var fisk = JsonConvert.DeserializeObject<List<Fisk>>(item.FishList);
+                var fiskAmount = fisk.Sum(s => s.Amount);
+            }
+            @Html.DisplayFor(modelItem => fiskAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @if (!item.Open)
+            {
+                @Html.ActionLink("Genåben", "ReOpenTrip", new {tripId = item.Id})
+            }
+        </td>
+    </tr>
+}
+
+</table>

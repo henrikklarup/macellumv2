@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Forside";
+}
+@model Macellum_Remake.Models.GraphArray
+
+<div id="myChart2" style="height: 100%; width: 100%; position: relative;"></div>
+
+@* ReSharper disable once UnusedLocals *@
+<script>
+
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        @{
+            var colors1 = new List<string>
+            {"#5900E5",
+"#5012E5",
+"#4724E5",
+"#3E37E5",
+"#3549E5",
+"#2C5CE5",
+"#236EE5",
+"#1A80E5",
+"#1193E5",
+"#08A5E5",
+"#00B8E5"};
+            var colors2 = new List<string>
+            {"#4AE500",
+"#42E50A",
+"#3BE514",
+"#33E51E",
+"#2CE528",
+"#25E532",
+"#1DE53C",
+"#16E546",
+"#0EE550",
+"#07E55A",
+"#00E564"};
+            var counter = 0;
+        }
+        
+        var tst = [
+            [
+                "Havn", "Minimum pris", { role: 'tooltip' },{type: 'string',role:'style'} , "Maximum pris", { role: 'tooltip' }, {type: 'string',role:'style'}
+            ],
+            @foreach (var graphNumber in Model.GraphNumbers)
+            {
+                var aa = graphNumber.Name.Replace("ø", "\\u00F8");
+                
+                var max = graphNumber.Value2;
+                var avg = graphNumber.Value;
+                var minPris = avg - (max - avg);
+                var minPrisStr = minPris.ToString("N0").Replace(",", ".").Replace(".", "");
+                var maxPris = max - minPris;
+                var maxPrisStr = max.ToString("N0").Replace(",", ".").Replace(".", "");
+                
+                @:['@aa',@(minPris),@(minPrisStr),'color: @(colors1[counter])',@(maxPris),@(maxPrisStr), 'color: @(colors2[counter])'],
+
+                counter++;
+            }
+        ];
+
+        var data = google.visualization.arrayToDataTable(tst);
+        var colors2 = ['rgb(229,245,249)', 'rgb(153,216,201)', 'rgb(44,162,95)'];
+
+        var options = {
+            height: 400,
+            title: @Html.Raw(Model.Date),
+            legend: { position: 'none', maxLines: 3 },
+            bar: { groupWidth: '75%' },
+            backgroundColor: '#fffaf7',
+            isStacked: true,
+    };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('myChart2'));
+        chart.draw(data, options);
+    }
+</script>
